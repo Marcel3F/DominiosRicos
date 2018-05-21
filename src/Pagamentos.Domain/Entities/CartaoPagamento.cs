@@ -1,0 +1,37 @@
+using System;
+
+namespace Pagamentos.Domain.Entities
+{
+    public class CartaoPagamento : Pagamento
+    {
+        public CartaoPagamento(
+            string nomeCartao, 
+            string numeroCartao, 
+            string numeroUltimaTransacao,
+            DateTime dataPagamento, 
+            DateTime dataVencimento, 
+            decimal valorGerado, 
+            decimal valorPago, 
+            string endereco, 
+            string pagador, 
+            string documento, 
+            string email) : base(
+                dataPagamento, 
+                dataVencimento, 
+                valorGerado, 
+                valorPago, 
+                endereco, 
+                pagador, 
+                documento, 
+                email)
+        {
+            NomeCartao = nomeCartao;
+            NumeroCartao = numeroCartao;
+            NumeroUltimaTransacao = numeroUltimaTransacao;
+        }
+
+        public string NomeCartao { get; private set; }
+        public string NumeroCartao { get; private set; }
+        public string NumeroUltimaTransacao { get; private set; }
+    }
+}
