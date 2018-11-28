@@ -1,11 +1,15 @@
+using Flunt.Validations;
+using Pagamentos.Shared.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Pagamentos.Domain.Entities
 {
-    public class Assinatura
+    public class Assinatura : Entity
     {
         private IList<Pagamento> _pagamentos;
+
         public Assinatura(DateTime? dataExpiracao)
         {
             DataCriacao = DateTime.Now;
@@ -20,11 +24,16 @@ namespace Pagamentos.Domain.Entities
         public DateTime DataAtualizacao { get; private set; }
         public DateTime? DataExpiracao { get; private set; }
         public bool Ativo { get; private set; }
-        public IReadOnlyCollection<Pagamento> Pagamentos { get; }
+        public IReadOnlyCollection<Pagamento> Pagamentos { get { return _pagamentos.ToArray(); } }
 
-        public void AdicionarPagamentoAssinatura(Pagamento pagamento)
+        public void AdicionarPagamento(Pagamento pagamento)
         {
-            _pagamentos.Add(pagamento);
+            AddNotifications(new Contract()
+                   .Requires()
+                   .IsGreaterThan(DateTime.Now, pagamento.DataPagamento, "Assinatura.Pagamentos", "A data do pagamento deve ser futura"));
+
+            if (Valid)
+                _pagamentos.Add(pagamento);
         }
 
         public void AtivarAssinatura()

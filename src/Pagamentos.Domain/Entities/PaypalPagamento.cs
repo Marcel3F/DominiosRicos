@@ -1,4 +1,5 @@
 using System;
+using Pagamentos.Domain.ValueObjects;
 
 namespace Pagamentos.Domain.Entities
 {
@@ -9,11 +10,11 @@ namespace Pagamentos.Domain.Entities
             DateTime dataPagamento, 
             DateTime dataVencimento, 
             decimal valorGerado, 
-            decimal valorPago, 
-            string endereco, 
+            decimal valorPago,
+            Endereco endereco, 
             string pagador, 
-            string documento, 
-            string email) : base(
+            Documento documento, 
+            Email email) : base(
                 dataPagamento, 
                 dataVencimento, 
                 valorGerado, 
