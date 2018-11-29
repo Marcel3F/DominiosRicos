@@ -42,7 +42,7 @@ namespace Pagamentos.Tests.Entities
         public void RetornarSucessoAssinaturaAtiva()
         {
             var pagamento = new PaypalPagamento("12312313", DateTime.Now, DateTime.Now.AddDays(5), 10, 10, _endereco, "Cangaço Corp", _documento, _email);
-
+            _assinatura.AdicionarPagamento(pagamento);
             _estudante.AdicionarAssinatura(_assinatura);
 
             Assert.IsTrue(_estudante.Valid);

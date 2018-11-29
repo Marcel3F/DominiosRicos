@@ -41,8 +41,7 @@ namespace Pagamentos.Domain.Commands
         {
             AddNotifications(new Contract()
                 .Requires()
-                .HasMinLen(PrimeiroNome, 3, "Nome.PrimeiroNome", "Nome deve conter pelo menos 3 caracteres")
-                .HasMinLen(Sobrenome, 3, "Nome.Sobrenome", "Nome deve conter pelo menos 3 caracteres"));
+                .HasMinLen(PrimeiroNome, 3, "PrimeiroNome", "Nome deve conter pelo menos 3 caracteres"));
         }
     }
 }

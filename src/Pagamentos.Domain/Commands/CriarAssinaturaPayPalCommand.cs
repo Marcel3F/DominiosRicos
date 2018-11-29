@@ -1,4 +1,6 @@
-﻿using Pagamentos.Domain.Enums;
+﻿using Flunt.Notifications;
+using Flunt.Validations;
+using Pagamentos.Domain.Enums;
 using Pagamentos.Shared.Commands;
 using System;
 using System.Collections.Generic;
@@ -6,7 +8,7 @@ using System.Text;
 
 namespace Pagamentos.Domain.Commands
 {
-    public class CriarAssinaturaPayPalCommand
+    public class CriarAssinaturaPayPalCommand : Notifiable, ICommand
     {
         public string PrimeiroNome { get;  set; }
         public string Sobrenome { get;  set; }
@@ -33,5 +35,13 @@ namespace Pagamentos.Domain.Commands
         public string PagadorEmail { get; set; }
         public string PagadorDocumento { get;  set; }
         public ETipoDocumento PagadorDocumentoTipo { get; set; }
+
+        public void Validate()
+        {
+            AddNotifications(new Contract()
+                .Requires()
+                .HasMinLen(PrimeiroNome, 3, "Nome.PrimeiroNome", "Nome deve conter pelo menos 3 caracteres")
+                .HasMinLen(Sobrenome, 3, "Nome.Sobrenome", "Nome deve conter pelo menos 3 caracteres"));
+        }
     }
 }
